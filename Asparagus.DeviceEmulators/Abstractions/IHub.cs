@@ -1,4 +1,5 @@
 ﻿using Asparagus.DeviceEmulators.Abstractions.Devices;
+using Asparagus.DeviceEmulators.Enum;
 
 namespace Asparagus.DeviceEmulators.Abstractions
 {
@@ -27,6 +28,11 @@ namespace Asparagus.DeviceEmulators.Abstractions
         /// <summary>
         /// Updates registered device's parameters
         /// </summary>
-        void UpdateParams(params string[] arr);
+        void UpdateParams(IBaseDevice device, params string[] arr);
+
+        /// <summary>
+        /// Gets registered device status
+        /// </summary>
+        DeviceState GetDeviceState(IBaseDevice device);
     }
 }
