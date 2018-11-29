@@ -46,6 +46,14 @@
     <Compile Include="Abstractions\Devices\IBaseDevice.cs" />
     <Compile Include="Abstractions\IHub.cs" />
     <Compile Include="Abstractions\ServiceInterfaces\ILogger.cs" />
+    <Compile Include="Devices\ClimateControlDevice\ClimateControlDeviceSpecialCommand1.cs" />
+    <Compile Include="Devices\ClimateControlDevice\ClimateControlDevice.cs" />
+    <Compile Include="Devices\ClimateControlDevice\ClimateControlDeviceSpecialCommand2.cs" />
+    <Compile Include="Devices\HumidifierControlDevice\HumidifierControlDevice.cs" />
+    <Compile Include="Devices\HumidifierControlDevice\HumidifierControlDeviceSpecialCommand1.cs" />
+    <Compile Include="Devices\LightingControlDevice\LightingControlDevice.cs" />
+    <Compile Include="Devices\LightingControlDevice\LightingControlDeviceTurnOffCommand.cs" />
+    <Compile Include="Devices\LightingControlDevice\LightingControlDeviceTurnOnCommand.cs" />
     <Compile Include="Enum\DeviceState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceImplementations\ConsoleLogger.cs" />

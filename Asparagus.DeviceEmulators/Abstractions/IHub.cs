@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Asparagus.DeviceEmulators.Abstractions.Command;
-using Asparagus.DeviceEmulators.Abstractions.Devices;
+﻿using Asparagus.DeviceEmulators.Abstractions.Devices;
 
 namespace Asparagus.DeviceEmulators.Abstractions
 {
@@ -12,9 +10,9 @@ namespace Asparagus.DeviceEmulators.Abstractions
         string Name { get; set; }
 
         /// <summary>
-        /// Registers new device with their special commands
+        /// Registers new device
         /// </summary>
-        void RegisterDevice(IBaseDevice device, IEnumerable<ISpecialDeviceCommand> commands);
+        void RegisterDevice(IBaseDevice device);
 
         /// <summary>
         /// Executes registered device's special commands

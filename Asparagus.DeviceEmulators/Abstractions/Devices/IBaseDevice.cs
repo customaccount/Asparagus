@@ -1,4 +1,6 @@
-﻿using Asparagus.DeviceEmulators.Enum;
+﻿using System.Collections.Generic;
+using Asparagus.DeviceEmulators.Abstractions.Command;
+using Asparagus.DeviceEmulators.Enum;
 
 namespace Asparagus.DeviceEmulators.Abstractions.Devices
 {
@@ -20,6 +22,11 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
         DeviceState GetDeviceState();
 
         /// <summary>
+        /// Sets device state
+        /// </summary>
+        void SetDeviceState(DeviceState deviceState);
+
+        /// <summary>
         /// Reboots device
         /// </summary>
         void Reboot();
@@ -28,5 +35,10 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
         /// Updates device parameters
         /// </summary>
         void UpdateParams(params string[] arr);
+
+        /// <summary>
+        /// Returns list of special device's commands
+        /// </summary>
+        IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands();
     }
 }
