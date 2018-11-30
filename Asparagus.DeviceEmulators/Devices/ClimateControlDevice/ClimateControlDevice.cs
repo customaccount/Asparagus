@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Asparagus.DeviceEmulators.Abstractions.Command;
 using Asparagus.DeviceEmulators.Abstractions.Devices;
 using Asparagus.DeviceEmulators.Abstractions.ServiceInterfaces;
@@ -11,12 +10,6 @@ namespace Asparagus.DeviceEmulators.Devices.ClimateControlDevice
         public ClimateControlDevice(string name, ILogger logger)
             : base(name, logger)
         {}
-
-        /// <inheritdoc />
-        public override void UpdateParams(params string[] arr)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <inheritdoc />
         public override IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands()

@@ -37,16 +37,18 @@ namespace Asparagus.DeviceEmulators.Devices
         /// <inheritdoc />
         public void ExecuteSpecificDeviceCommands(Guid id)
         {
-            var command = GetRegisteredDevice(id).GetSpecialDeviceCommands().ToList();
+            var commands = GetRegisteredDevice(id).GetSpecialDeviceCommands().ToList();
 
-            if (!command.Any())
+            if (!commands.Any())
             {
                 _logger.Write($"Device with Id: {id}. Special commands were not presented");
+
+                return;
             }
 
-            foreach (var specialCommand in command)
+            foreach (var command in commands)
             {
-                specialCommand.Execute();
+                command.Execute();
             }
         }
 

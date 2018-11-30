@@ -9,6 +9,8 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
     public abstract class BaseDevice : IBaseDevice
     {
         private DeviceState _deviceState = DeviceState.None;
+        private string _params;
+
         protected ILogger Logger;
 
         /// <inheritdoc />
@@ -53,7 +55,10 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
         }
 
         /// <inheritdoc />
-        public abstract void UpdateParams(params string[] arr);
+        public void UpdateParams(params string[] arr)
+        {
+            _params = arr.ToString();
+        }
 
         /// <inheritdoc />
         public abstract IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands();
