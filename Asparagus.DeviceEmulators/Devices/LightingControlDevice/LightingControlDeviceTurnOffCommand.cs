@@ -2,7 +2,7 @@
 
 namespace Asparagus.DeviceEmulators.Devices.LightingControlDevice
 {
-    class LightingControlDeviceTurnOffCommand : ISpecialDeviceCommand
+    public class LightingControlDeviceTurnOffCommand : ISpecialDeviceCommand
     {
         private readonly LightingControlDevice _device;
 

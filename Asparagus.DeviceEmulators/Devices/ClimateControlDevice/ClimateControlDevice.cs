@@ -30,11 +30,17 @@ namespace Asparagus.DeviceEmulators.Devices.ClimateControlDevice
             return commands;
         }
 
+        /// <summary>
+        /// Device special command1
+        /// </summary>
         public void Command1()
         {
             LogCommand(nameof(Command1));
         }
 
+        /// <summary>
+        /// Device special command2
+        /// </summary>
         public void Command2()
         {
             LogCommand(nameof(Command2));

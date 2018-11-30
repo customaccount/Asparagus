@@ -20,12 +20,9 @@ namespace Asparagus.DeviceEmulators.Devices
         }
 
         /// <inheritdoc />
-        public string Name { get; set; }
-
-        /// <inheritdoc />
         public void RegisterDevice(IBaseDevice device)
         {
-            if (IsDeviceRegistered(device))
+            if (IsDeviceRegistered(device.Id))
             {
                 var message = $"Device {device.Name} has already registered";
                 _logger.Write(message);
@@ -38,13 +35,13 @@ namespace Asparagus.DeviceEmulators.Devices
         }
 
         /// <inheritdoc />
-        public void ExecuteSpecificDeviceCommands(IBaseDevice device)
+        public void ExecuteSpecificDeviceCommands(Guid id)
         {
-            var command = GetRegisteredDevice(device).GetSpecialDeviceCommands().ToList();
+            var command = GetRegisteredDevice(id).GetSpecialDeviceCommands().ToList();
 
             if (!command.Any())
             {
-                _logger.Write($"Device {device.Name}. Special commands were not presented");
+                _logger.Write($"Device with Id: {id}. Special commands were not presented");
             }
 
             foreach (var specialCommand in command)
@@ -54,35 +51,36 @@ namespace Asparagus.DeviceEmulators.Devices
         }
 
         /// <inheritdoc />
-        public void RebootDevice(IBaseDevice device)
+        public void RebootDevice(Guid id)
         {
-            GetRegisteredDevice(device).Reboot();
+            GetRegisteredDevice(id).Reboot();
         }
 
         /// <inheritdoc />
-        public void UpdateParams(IBaseDevice device, params string[] arr)
+        public void UpdateParams(Guid id, params string[] arr)
         {
-            GetRegisteredDevice(device).UpdateParams(arr);
+            GetRegisteredDevice(id).UpdateParams(arr);
         }
 
-        public DeviceState GetDeviceState(IBaseDevice device) 
+        /// <inheritdoc />
+        public DeviceState GetDeviceState(Guid id) 
         {
-            return GetRegisteredDevice(device).GetDeviceState();
+            return GetRegisteredDevice(id).GetDeviceState();
         }
 
-        private bool IsDeviceRegistered(IBaseDevice device) => _devices.Contains(device);
+        private bool IsDeviceRegistered(Guid id) => _devices.Exists(x => x.Id == id);
 
-        private IBaseDevice GetRegisteredDevice(IBaseDevice device)
+        private IBaseDevice GetRegisteredDevice(Guid id)
         {
-            if (!IsDeviceRegistered(device))
+            if (!IsDeviceRegistered(id))
             {
-                var message = $"Device {device.Name} has not registered yet";
+                var message = $"Device with Id: {id} has not registered yet";
                 _logger.Write(message);
 
                 throw new ArgumentException(message);
             }
 
-            return _devices.Find(x => x.Equals(device));
+            return _devices.Find(x => x.Id == id);
         }
     }
 }

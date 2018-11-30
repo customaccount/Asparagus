@@ -29,6 +29,9 @@ namespace Asparagus.DeviceEmulators.Devices.HumidifierControlDevice
             return commands;
         }
 
+        /// <summary>
+        /// Device special command1
+        /// </summary>
         public void Command1()
         {
             LogCommand(nameof(Command1));

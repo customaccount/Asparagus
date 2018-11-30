@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Asparagus.DeviceEmulators.Abstractions.Command;
 using Asparagus.DeviceEmulators.Abstractions.ServiceInterfaces;
 using Asparagus.DeviceEmulators.Enum;
@@ -11,13 +12,21 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
         protected ILogger Logger;
 
         /// <inheritdoc />
+        public Guid Id { get; }
+
+        /// <inheritdoc />
         public string Name { get; set; }
 
-        protected BaseDevice(string name, ILogger logger)
+        protected BaseDevice(string name, Guid id, ILogger logger)
         {
+            Id = id;
             Name = name;
             Logger = logger;
         }
+
+        protected BaseDevice(string name, ILogger logger)
+            :this(name, Guid.NewGuid(), logger)
+        {}
 
         /// <inheritdoc />
         public void Register()

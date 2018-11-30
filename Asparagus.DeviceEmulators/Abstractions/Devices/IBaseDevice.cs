@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Asparagus.DeviceEmulators.Abstractions.Command;
 using Asparagus.DeviceEmulators.Enum;
 
@@ -6,6 +7,10 @@ namespace Asparagus.DeviceEmulators.Abstractions.Devices
 {
     public interface IBaseDevice
     {
+        /// <summary>
+        /// Device id
+        /// </summary>
+        Guid Id { get; }
         /// <summary>
         /// Gets/sets device name;
         /// </summary>

@@ -30,11 +30,17 @@ namespace Asparagus.DeviceEmulators.Devices.LightingControlDevice
             return commands;
         }
 
+        /// <summary>
+        /// Turn on device
+        /// </summary>
         public void TurnOn()
         {
             LogCommand(nameof(TurnOn));
         }
 
+        /// <summary>
+        /// Turn off device
+        /// </summary>
         public void TurnOff()
         {
             LogCommand(nameof(TurnOff));

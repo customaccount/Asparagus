@@ -1,15 +1,11 @@
-﻿using Asparagus.DeviceEmulators.Abstractions.Devices;
+﻿using System;
+using Asparagus.DeviceEmulators.Abstractions.Devices;
 using Asparagus.DeviceEmulators.Enum;
 
 namespace Asparagus.DeviceEmulators.Abstractions
 {
     public interface IHub
     {
-        /// <summary>
-        /// Gets/sets hub name
-        /// </summary>
-        string Name { get; set; }
-
         /// <summary>
         /// Registers new device
         /// </summary>
@@ -18,21 +14,21 @@ namespace Asparagus.DeviceEmulators.Abstractions
         /// <summary>
         /// Executes registered device's special commands
         /// </summary>
-        void ExecuteSpecificDeviceCommands(IBaseDevice device);
+        void ExecuteSpecificDeviceCommands(Guid id);
 
         /// <summary>
         /// Reboots registered device
         /// </summary>
-        void RebootDevice(IBaseDevice device);
+        void RebootDevice(Guid id);
 
         /// <summary>
         /// Updates registered device's parameters
         /// </summary>
-        void UpdateParams(IBaseDevice device, params string[] arr);
+        void UpdateParams(Guid id, params string[] arr);
 
         /// <summary>
         /// Gets registered device status
         /// </summary>
-        DeviceState GetDeviceState(IBaseDevice device);
+        DeviceState GetDeviceState(Guid id);
     }
 }
