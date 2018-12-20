@@ -62,7 +62,7 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
                 using (var channel = _connection.CreateModel())
                 {
                     channel.QueueDeclare(_queueName, _queueBinderAttribute.Durable, _queueBinderAttribute.Exclusive, _queueBinderAttribute.AutoDelete,args);
-                    channel.QueueBind(_queueName, _queueBinderAttribute.Exchange,_queueBinderAttribute.RoutingKey);
+                    channel.QueueBind(_queueName, _queueBinderAttribute.Exchange, _queueBinderAttribute.RoutingKey);
                 }
             }
 
@@ -79,8 +79,8 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
 
         private IReadOnlyDictionary<string, object> GetBindingData(RabbitQueueTriggerValue value)
         {
-            var bindingData = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            bindingData.Add("RabbitQueueTrigger", value);
+            var bindingData = new 
+                Dictionary<string, object>(StringComparer.OrdinalIgnoreCase) {{"RabbitQueueTrigger", value}};
 
             return bindingData;
         }

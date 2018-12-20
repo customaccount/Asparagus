@@ -46,7 +46,6 @@ namespace WebJobs.Extensions.RabbitMQ.Config
             };
 
             _connection = factory.CreateConnection();
-            
         }
 
         public void Initialize(ExtensionConfigContext context)
@@ -56,10 +55,16 @@ namespace WebJobs.Extensions.RabbitMQ.Config
                 throw new ArgumentNullException("context");
             }
 
+            var trigger = new RabbitQueueTriggerAttributeBindingProvider(_connection);
             // Register our extension binding providers
             var rule = context.AddBindingRule<RabbitQueueBinderAttribute>();
-            rule.BindToTrigger(new RabbitQueueTriggerAttributeBindingProvider(_connection));
-            rule.Bind(new RabbitMessageAttributeBindingProvider(_connection));
+            rule.BindToTrigger(trigger);
+
+            var rule1 = context.AddBindingRule<RabbitQueueTriggerAttribute>();
+            rule1.BindToTrigger(trigger);
+
+            var rule2  = context.AddBindingRule<RabbitMessageAttribute>();
+            rule2.Bind(new RabbitMessageAttributeBindingProvider(_connection));
         }
     }
 }

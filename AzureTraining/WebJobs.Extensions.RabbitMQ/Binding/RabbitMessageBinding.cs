@@ -14,7 +14,7 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
         private readonly bool _mandatory;
         private readonly ParameterInfo _parameter;
 
-        public RabbitMessageBinding(IConnection connection, string exchange, string routingKey,bool mandatory, ParameterInfo parameter)
+        public RabbitMessageBinding(IConnection connection, string exchange, string routingKey, bool mandatory, ParameterInfo parameter)
         {
             _connection = connection;
             _exchange = exchange;
@@ -30,7 +30,7 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
 
         public Task<IValueProvider> BindAsync(BindingContext context)
         {
-            return Task.FromResult<IValueProvider>(new RabbitMessageValueBinder(_connection,_exchange,_routingKey,_mandatory, _parameter));
+            return Task.FromResult<IValueProvider>(new RabbitMessageValueBinder(_connection, _exchange, _routingKey, _mandatory, _parameter));
         }
 
         public Task<IValueProvider> BindAsync(object value, ValueBindingContext context)
