@@ -19,11 +19,15 @@ namespace WebJobs.Extensions.RabbitMQ.Config
         private readonly INameResolver _nameResolver;
         private readonly IConfiguration _configuration;
 
+
+        private string _serverEndpoint;
+
         public RabbitMqExtensionConfigProvider(IOptions<RabbitMqOptions> options, IConfiguration configuration, INameResolver nameResolver, ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
             _nameResolver = nameResolver;
             _options = options.Value;
+            _serverEndpoint = options.Value.ServerEndpoint;
 
             var factory = new ConnectionFactory()
             {
@@ -63,7 +67,7 @@ namespace WebJobs.Extensions.RabbitMQ.Config
             var rule1 = context.AddBindingRule<RabbitQueueTriggerAttribute>();
             rule1.BindToTrigger(trigger);
 
-            var rule2  = context.AddBindingRule<RabbitMessageAttribute>();
+            var rule2 = context.AddBindingRule<RabbitMessageAttribute>();
             rule2.Bind(new RabbitMessageAttributeBindingProvider(_connection));
         }
     }

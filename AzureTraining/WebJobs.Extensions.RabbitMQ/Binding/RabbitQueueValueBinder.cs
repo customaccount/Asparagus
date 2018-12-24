@@ -71,10 +71,11 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
             return Encoding.UTF8.GetString(_value.MessageBytes);
         }
 
-        //TODO 
+        //TODO set up out-parameter value? 
         public Task SetValueAsync(object value, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            
+            return Task.FromResult(true);
         }
     }
 }

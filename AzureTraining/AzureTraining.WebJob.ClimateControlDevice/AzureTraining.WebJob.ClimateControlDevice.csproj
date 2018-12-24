@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebJobs.Extensions.RabbitMQ\WebJobs.Extensions.RabbitMQ.csproj" />
   </ItemGroup>
 

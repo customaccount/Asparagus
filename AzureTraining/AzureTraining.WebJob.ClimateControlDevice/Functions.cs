@@ -1,16 +1,15 @@
-﻿using WebJobs.Extensions.RabbitMQ.Attributes;
+﻿using System;
+using WebJobs.Extensions.RabbitMQ.Attributes;
 
 namespace AzureTraining.WebJob.ClimateControlDevice
 {
     public class Functions
     {
-        //public static void ProcessQueueMessage(
-        //    [RabbitQueueTrigger("hello")] string message)
-        //{}
-
-        public static void SendQueueMessage([RabbitMessage("", "hello")] out string message)
+        [return: RabbitMessage("", "hello2")]
+        public static string SendQueueMessage([RabbitQueueTrigger("hello")] string message)
         {
-            message = "message from climate device";
+            Console.WriteLine(message);
+            return "Test";
         }
     }
 }

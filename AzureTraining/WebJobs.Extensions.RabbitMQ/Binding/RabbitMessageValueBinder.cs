@@ -20,7 +20,7 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
 
         public Type Type => _parameter.ParameterType;
 
-        public RabbitMessageValueBinder(IConnection connection, string exchange,string routingKey,bool mandatory, ParameterInfo parameter)// : base(parameter.ParameterType)
+        public RabbitMessageValueBinder(IConnection connection, string exchange,string routingKey, bool mandatory, ParameterInfo parameter)// : base(parameter.ParameterType)
         {
             _connection = connection;
             _exchange = exchange;

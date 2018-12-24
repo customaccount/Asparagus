@@ -19,8 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.EventHubs" Version="2.2.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Core" Version="3.0.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="3.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
@@ -31,12 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AzureTraining.DeviceEmulators\AzureTraining.DeviceEmulators.csproj" />
     <ProjectReference Include="..\WebJobs.Extensions.RabbitMQ\WebJobs.Extensions.RabbitMQ.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Azure.WebJobs.Host">
-      <HintPath>..\packages\Microsoft.Azure.WebJobs.1.1.2\lib\net45\Microsoft.Azure.WebJobs.Host.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

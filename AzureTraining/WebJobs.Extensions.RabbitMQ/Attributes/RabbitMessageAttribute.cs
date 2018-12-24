@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Description;
 
 namespace WebJobs.Extensions.RabbitMQ.Attributes
 {
-    [AttributeUsage(AttributeTargets.Parameter)]
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.ReturnValue)]
     [Binding]
     public class RabbitMessageAttribute : Attribute
     {
