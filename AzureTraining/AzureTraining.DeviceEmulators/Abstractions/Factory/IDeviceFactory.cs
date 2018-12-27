@@ -1,5 +1,6 @@
 ﻿using AzureTraining.DeviceEmulators.Abstractions.Devices;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
+using AzureTraining.DeviceEmulators.Devices.Model;
 
 namespace AzureTraining.DeviceEmulators.Abstractions.Factory
 {
@@ -8,21 +9,26 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Factory
         /// <summary>
         /// Creates Climate device
         /// </summary>
-        IBaseDevice CreateClimateDevice(string name, ILogger logger);
+        BaseDevice CreateClimateDevice(string name, ILogger logger);
+
+        /// <summary>
+        /// Creates Climate device 
+        /// </summary>
+        BaseDevice CreateClimateDevice(DeviceItem deviceItem, ILogger logger);
 
         /// <summary>
         /// Creates Humidifier device
         /// </summary>
-        IBaseDevice CreateHumidifierDevice(string name, ILogger logger);
+        BaseDevice CreateHumidifierDevice(string name, ILogger logger);
 
         /// <summary>
         /// Creates Lighting device
         /// </summary>
-        IBaseDevice CreateLightingDevice(string name, ILogger logger);
+        BaseDevice CreateLightingDevice(string name, ILogger logger);
         
         /// <summary>
         /// Creates Hub device
         /// </summary>
-        IHub CreateHub(ILogger logger);
+        BaseHub CreateHub(ILogger logger);
     }
 }

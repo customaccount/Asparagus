@@ -2,6 +2,7 @@
 using AzureTraining.DeviceEmulators.Abstractions.Command;
 using AzureTraining.DeviceEmulators.Abstractions.Devices;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
+using AzureTraining.DeviceEmulators.Devices.Model;
 
 namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
 {
@@ -10,6 +11,10 @@ namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
         public ClimateControlDevice(string name, ILogger logger)
             : base(name, logger)
         {}
+
+        public ClimateControlDevice(DeviceItem deviceItem, ILogger logger)
+            : base(deviceItem, logger)
+        { }
 
         /// <inheritdoc />
         public override IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands()

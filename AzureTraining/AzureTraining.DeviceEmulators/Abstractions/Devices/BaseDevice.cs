@@ -2,66 +2,94 @@
 using System.Collections.Generic;
 using AzureTraining.DeviceEmulators.Abstractions.Command;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
+using AzureTraining.DeviceEmulators.Devices.Model;
 using AzureTraining.DeviceEmulators.Enum;
 
 namespace AzureTraining.DeviceEmulators.Abstractions.Devices
 {
     public abstract class BaseDevice : IBaseDevice
     {
-        private DeviceState _deviceState = DeviceState.None;
-        private string _params;
+        private readonly DeviceItem _deviceItem;
 
         protected ILogger Logger;
 
-        /// <inheritdoc />
-        public Guid Id { get; }
-
-        /// <inheritdoc />
-        public string Name { get; set; }
-
-        protected BaseDevice(string name, Guid id, ILogger logger)
+        /// <inheritdoc /> //TODO
+        public string HubId
         {
-            Id = id;
-            Name = name;
+            get => _deviceItem.HubId;
+            //set => _deviceItem.HubId = value;
+        }
+
+        /// <inheritdoc />
+        public string Id => _deviceItem.DeviceId;
+
+        /// <inheritdoc />
+        public string Name
+        {
+            get => _deviceItem.DeviceName;
+            set => _deviceItem.DeviceName = value;
+        }
+
+        protected BaseDevice(string name, string id, string deviceParams, string hubId, ILogger logger)
+        {
+            _deviceItem = new DeviceItem()
+            {
+                DeviceId = id,
+                DeviceName = name,
+                Params = deviceParams,
+                HubId = hubId
+            };
+            
             Logger = logger;
         }
 
         protected BaseDevice(string name, ILogger logger)
-            :this(name, Guid.NewGuid(), logger)
+            :this(name, Guid.NewGuid().ToString(), string.Empty, default(Guid).ToString(), logger)
+        {}
+
+        protected BaseDevice(DeviceItem deviceItem, ILogger logger)
+            :this(deviceItem.DeviceName, deviceItem.DeviceId, deviceItem.Params, deviceItem.HubId, logger)
         {}
 
         /// <inheritdoc />
-        public void Register()
+        public abstract IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands();
+
+        /// <inheritdoc />
+        public void Register(string hubId)
         {
-            _deviceState = DeviceState.Registered;
+            _deviceItem.State = DeviceState.Registered;
+            _deviceItem.HubId = hubId;
             LogMessage("Registered in the hub");
         }
 
         /// <inheritdoc />
-        public DeviceState GetDeviceState() => _deviceState;
+        public DeviceState GetDeviceState() => _deviceItem.State;
 
         /// <inheritdoc />
         public void SetDeviceState(DeviceState deviceState)
         {
-            LogMessage($"Device state was changed from {_deviceState} to {deviceState}");
-            _deviceState = deviceState;
+            LogMessage($"Device state was changed from {_deviceItem.State} to {deviceState}");
+            _deviceItem.State = deviceState;
         }
 
         /// <inheritdoc />
         public void Reboot()
         {
-            _deviceState = DeviceState.Rebooted;
+            _deviceItem.State = DeviceState.Rebooted;
             LogMessage("Device was rebooted");
         }
 
         /// <inheritdoc />
         public void UpdateParams(params string[] arr)
         {
-            _params = arr.ToString();
+            _deviceItem.Params = arr.ToString();
         }
 
         /// <inheritdoc />
-        public abstract IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands();
+        public string GetParams(params string[] arr) => _deviceItem.Params;
+
+        /// <inheritdoc />
+        public DeviceItem GetDeviceItem() => _deviceItem;
 
         protected void LogCommand(string methodName)
         {
@@ -70,7 +98,7 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
 
         private void LogMessage(string message)
         {
-            Logger.Write($"Device {Name}. {message}");
+            Logger.Write($"Device {_deviceItem.DeviceName}. {message}");
         }
     }
 }

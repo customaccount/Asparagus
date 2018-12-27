@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AzureTraining.DeviceEmulators.Abstractions.Command;
+using AzureTraining.DeviceEmulators.Devices.Model;
 using AzureTraining.DeviceEmulators.Enum;
 
 namespace AzureTraining.DeviceEmulators.Abstractions.Devices
@@ -8,18 +8,24 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
     public interface IBaseDevice
     {
         /// <summary>
-        /// Device id
+        /// Gets device id
         /// </summary>
-        Guid Id { get; }
+        string Id { get; }
+        
         /// <summary>
         /// Gets/sets device name;
         /// </summary>
         string Name { get; set; }
 
         /// <summary>
+        /// Gets hub id
+        /// </summary>
+        string HubId { get; }
+
+        /// <summary>
         /// Registers device in the hub
         /// </summary>
-        void Register();
+        void Register(string hubId);
 
         /// <summary>
         /// Returns device state
@@ -42,8 +48,18 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
         void UpdateParams(params string[] arr);
 
         /// <summary>
+        /// Returns device parameters
+        /// </summary>
+        string GetParams(params string[] arr);
+
+        /// <summary>
         /// Returns list of special device's commands
         /// </summary>
         IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands();
+
+        /// <summary>
+        /// Returns device item entity with device state
+        /// </summary>
+        DeviceItem GetDeviceItem();
     }
 }

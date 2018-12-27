@@ -1,5 +1,4 @@
-﻿using System;
-using AzureTraining.DeviceEmulators.Abstractions.Devices;
+﻿using AzureTraining.DeviceEmulators.Abstractions.Devices;
 using AzureTraining.DeviceEmulators.Enum;
 
 namespace AzureTraining.DeviceEmulators.Abstractions
@@ -9,26 +8,26 @@ namespace AzureTraining.DeviceEmulators.Abstractions
         /// <summary>
         /// Registers new device
         /// </summary>
-        void RegisterDevice(IBaseDevice device);
+        void RegisterDevice(string deviceId);
 
         /// <summary>
         /// Executes registered device's special commands
         /// </summary>
-        void ExecuteSpecificDeviceCommands(Guid id);
+        void ExecuteSpecificDeviceCommands(string id);
 
         /// <summary>
         /// Reboots registered device
         /// </summary>
-        void RebootDevice(Guid id);
+        void RebootDevice(string id);
 
         /// <summary>
         /// Updates registered device's parameters
         /// </summary>
-        void UpdateParams(Guid id, params string[] arr);
+        void UpdateParams(string id, params string[] arr);
 
         /// <summary>
         /// Gets registered device status
         /// </summary>
-        DeviceState GetDeviceState(Guid id);
+        DeviceState GetDeviceState(string id);
     }
 }
