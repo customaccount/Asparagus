@@ -4,14 +4,13 @@ using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
 using AzureTraining.DeviceEmulators.Constants;
 using AzureTraining.DTO;
 using WebJobs.Extensions.RabbitMQ.Attributes;
-using ILogger = AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces.ILogger;
 
 namespace AzureTraining.WebJob.Hub
 {
     public class Functions
     {
-        private readonly ILogger _logger;
         private readonly IHubManager _hubManager;
+        private readonly ILogger _logger;
         private readonly BaseHub _hub;
 
         public Functions(ILogger logger, IHubManager hubManager, IDeviceFactory deviceFactory)
@@ -22,6 +21,7 @@ namespace AzureTraining.WebJob.Hub
         }
 
         public void Register(
+            [RabbitQueueBinder(QueueConstants.ExchangeDirect, QueueConstants.Device.QueueRegister)]
             [RabbitQueueTrigger(QueueConstants.Device.QueueRegister)] RegisterDeviceDto registerDeviceDto)
         {
             if (registerDeviceDto.HubId == _hub.Id)
@@ -33,7 +33,9 @@ namespace AzureTraining.WebJob.Hub
             }
         }
 
-        public void GetDeviceState([RabbitQueueTrigger(QueueConstants.Device.QueueDeviceState)] string deviceId)
+        public void GetDeviceState(
+            [RabbitQueueBinder(QueueConstants.ExchangeDirect, QueueConstants.Device.QueueDeviceState)]
+            [RabbitQueueTrigger(QueueConstants.Device.QueueDeviceState)] string deviceId)
         {
             if (deviceId == _hub.Id)
             {
