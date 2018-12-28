@@ -42,7 +42,7 @@ namespace AzureTraining.WebJob.Hub
         }
 
         //add queue bind attribute? 
-        [return: RabbitMessage(QueueConstants.WebApi.Exchange, QueueConstants.WebApi.RouteKeyDeviceState)]
+        [return: RabbitMessage(QueueConstants.ExchangeDirect, QueueConstants.WebApi.RouteKeyDeviceState)]
         public DeviceStateDto SendDeviceState()
         {
             _logger.Write($"Device with {_hub.Id} sent");

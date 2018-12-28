@@ -21,7 +21,9 @@ namespace AzureTraining.WebJob.ClimateControlDevice
             _device = deviceFactory.CreateClimateDevice("climate0", logger);
         }
         
-        public void Register([RabbitQueueTrigger(QueueConstants.Hub.QueueRegister)]
+        public void Register(
+            [RabbitQueueBinder(QueueConstants.ExchangeDirect, QueueConstants.Hub.QueueRegister)]
+            [RabbitQueueTrigger(QueueConstants.Hub.QueueRegister)]
             RegisterDeviceDto registerDeviceDto)
         {
             if (registerDeviceDto.DeviceId == _device.Id)
@@ -33,7 +35,10 @@ namespace AzureTraining.WebJob.ClimateControlDevice
             }
         }
 
-        public void GetDeviceState([RabbitQueueTrigger(QueueConstants.Hub.QueueDeviceState)] string deviceId)
+        
+        public void GetDeviceState(
+            [RabbitQueueBinder(QueueConstants.ExchangeDirect, QueueConstants.Hub.QueueDeviceState)]
+            [RabbitQueueTrigger(QueueConstants.Hub.QueueDeviceState)] string deviceId)
         {
             if (deviceId == _device.Id)
             {
@@ -42,7 +47,7 @@ namespace AzureTraining.WebJob.ClimateControlDevice
         }
 
         //add queue bind attribute? 
-        [return: RabbitMessage(QueueConstants.Hub.Exchange, QueueConstants.Hub.QueueDeviceState)]
+        [return: RabbitMessage(QueueConstants.ExchangeDirect, QueueConstants.Hub.QueueDeviceState)]
         public DeviceStateDto SendDeviceState()
         {
             _logger.Write(

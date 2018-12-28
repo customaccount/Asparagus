@@ -12,7 +12,6 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
     {
         private readonly IRepository<IHub> _hubRepository;
 
-
         public Task UpdateHubAsync(HubItem hubItem)
         {
             throw new NotImplementedException();

@@ -1,5 +1,4 @@
-﻿using AzureTraining.DeviceEmulators.Abstractions;
-using AzureTraining.DeviceEmulators.Abstractions.Devices;
+﻿using AzureTraining.DeviceEmulators.Abstractions.Devices;
 using AzureTraining.DeviceEmulators.Abstractions.Factory;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
 using AzureTraining.DeviceEmulators.Devices;
@@ -12,18 +11,23 @@ namespace AzureTraining.DeviceEmulators.Factory
 {
     public class DeviceFactory : IDeviceFactory
     {
+        /// <inheritdoc />
         public BaseDevice CreateClimateDevice(string name, ILogger logger)
             => new ClimateControlDevice(name, logger);
 
+        /// <inheritdoc />
         public BaseDevice CreateClimateDevice(DeviceItem deviceItem, ILogger logger)
             => new ClimateControlDevice(deviceItem, logger);
 
+        /// <inheritdoc />
         public BaseDevice CreateHumidifierDevice(string name, ILogger logger)
             => new HumidifierControlDevice(name, logger);
 
+        /// <inheritdoc />
         public BaseDevice CreateLightingDevice(string name, ILogger logger)
             => new LightingControlDevice(name, logger);
 
+        /// <inheritdoc />
         public BaseHub CreateHub(ILogger logger)
             => new Hub(logger);
     }

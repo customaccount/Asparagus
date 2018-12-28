@@ -13,12 +13,8 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
 
         protected ILogger Logger;
 
-        /// <inheritdoc /> //TODO
-        public string HubId
-        {
-            get => _deviceItem.HubId;
-            //set => _deviceItem.HubId = value;
-        }
+        /// <inheritdoc />
+        public string HubId => _deviceItem.HubId;
 
         /// <inheritdoc />
         public string Id => _deviceItem.DeviceId;

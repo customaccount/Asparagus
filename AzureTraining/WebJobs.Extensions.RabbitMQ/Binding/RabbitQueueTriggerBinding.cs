@@ -61,6 +61,8 @@ namespace WebJobs.Extensions.RabbitMQ.Binding
 
                 using (var channel = _connection.CreateModel())
                 {
+                    //TODO extend bind attribute for the declaring new exchange if it needed.
+                    //channel.ExchangeDeclare(...); 
                     channel.QueueDeclare(_queueName, _queueBinderAttribute.Durable, _queueBinderAttribute.Exclusive, _queueBinderAttribute.AutoDelete,args);
                     channel.QueueBind(_queueName, _queueBinderAttribute.Exchange, _queueBinderAttribute.RoutingKey);
                 }

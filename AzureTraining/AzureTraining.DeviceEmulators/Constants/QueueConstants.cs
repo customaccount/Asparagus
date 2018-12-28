@@ -6,17 +6,16 @@ namespace AzureTraining.DeviceEmulators.Constants
 {
     public static class QueueConstants
     {
+        public const string ExchangeDirect = "amq.direct";
         public static class Hub
         {
             public const string QueueRegister = "hub.register";
             public const string QueueDeviceState = "hub.deviceState";
-            public const string Exchange = "";
         }
 
         public static class WebApi
         {
             public const string RouteKeyDeviceState = "webApi.deviceState";
-            public const string Exchange = "";
         }
 
         public static class Device

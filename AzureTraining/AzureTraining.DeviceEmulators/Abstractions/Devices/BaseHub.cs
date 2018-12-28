@@ -9,7 +9,7 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
     public abstract class BaseHub : IHub
     {
         private readonly ILogger _logger;
-        private HubItem _hubItem;
+        private readonly HubItem _hubItem;
 
         public string Id => _hubItem.HubId;
 
@@ -83,7 +83,7 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
                 throw new ArgumentException(message);
             }
 
-            throw new NotImplementedException(); // TODO replace with the queueing command logic
+            throw new NotImplementedException(); // TODO replace with the queueing command logic?
         }
     }
 }
