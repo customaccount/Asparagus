@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Extensions.RabbitMQ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureTraining.WebJob.ClimateControlDevice", "AzureTraining.WebJob.ClimateControlDevice\AzureTraining.WebJob.ClimateControlDevice.csproj", "{C77CB642-2223-4B4C-8EAA-2094723C8039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureTraining.DTO", "AzureTraining.DTO\AzureTraining.DTO.csproj", "{A88FF466-8C78-49DC-921A-59904F6645D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureTraining.DTO", "AzureTraining.DTO\AzureTraining.DTO.csproj", "{A88FF466-8C78-49DC-921A-59904F6645D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureTraining.WebJob.HumidifierControlDevice", "AzureTraining.WebJob.HumidifierDevice\AzureTraining.WebJob.HumidifierControlDevice.csproj", "{A08CE0FE-4952-4B9A-ADE0-653F4D09DF60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureTraining.WebJob.LightingControlDevice", "AzureTraining.WebJob.LightingControlDevice\AzureTraining.WebJob.LightingControlDevice.csproj", "{CAF99717-8242-4145-ACA7-2CF088FC432C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{A88FF466-8C78-49DC-921A-59904F6645D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A88FF466-8C78-49DC-921A-59904F6645D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A88FF466-8C78-49DC-921A-59904F6645D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08CE0FE-4952-4B9A-ADE0-653F4D09DF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08CE0FE-4952-4B9A-ADE0-653F4D09DF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08CE0FE-4952-4B9A-ADE0-653F4D09DF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08CE0FE-4952-4B9A-ADE0-653F4D09DF60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF99717-8242-4145-ACA7-2CF088FC432C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF99717-8242-4145-ACA7-2CF088FC432C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF99717-8242-4145-ACA7-2CF088FC432C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF99717-8242-4145-ACA7-2CF088FC432C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
