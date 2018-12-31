@@ -28,7 +28,7 @@ namespace AzureTraining.DeviceEmulators.Factory
             => new LightingControlDevice(name, logger);
 
         /// <inheritdoc />
-        public BaseHub CreateHub(ILogger logger)
-            => new Hub(logger);
+        public BaseHub CreateHub(string id, ILogger logger)
+            => new Hub(id, logger);
     }
 }

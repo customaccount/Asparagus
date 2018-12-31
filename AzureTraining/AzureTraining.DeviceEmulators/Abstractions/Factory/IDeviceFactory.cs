@@ -29,6 +29,6 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Factory
         /// <summary>
         /// Creates Hub device
         /// </summary>
-        BaseHub CreateHub(ILogger logger);
+        BaseHub CreateHub(string id, ILogger logger);
     }
 }

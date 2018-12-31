@@ -13,13 +13,10 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
 
         public string Id => _hubItem.HubId;
 
-        protected BaseHub(ILogger logger)
+        protected BaseHub(string id, ILogger logger)
         {
             _logger = logger;
-            _hubItem = new HubItem
-            {
-                HubId = Guid.NewGuid().ToString()
-            };
+            _hubItem = new HubItem{ HubId = id };
         }
         /// <inheritdoc />
         public void RegisterDevice(string deviceId)
