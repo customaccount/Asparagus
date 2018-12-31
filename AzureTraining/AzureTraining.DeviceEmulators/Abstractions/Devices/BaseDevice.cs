@@ -26,25 +26,36 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
             set => _deviceItem.DeviceName = value;
         }
 
-        protected BaseDevice(string name, string id, string deviceParams, string hubId, ILogger logger)
+        protected BaseDevice(string name, 
+            string id, 
+            string deviceParams, 
+            DeviceState deviceState, 
+            string hubId, 
+            ILogger logger)
         {
             _deviceItem = new DeviceItem()
             {
                 DeviceId = id,
                 DeviceName = name,
                 Params = deviceParams,
-                HubId = hubId
+                HubId = hubId,
+                State = deviceState
             };
             
             Logger = logger;
         }
 
         protected BaseDevice(string name, ILogger logger)
-            :this(name, Guid.NewGuid().ToString(), string.Empty, default(Guid).ToString(), logger)
+            :this(name, Guid.NewGuid().ToString(), string.Empty, DeviceState.None, default(Guid).ToString(), logger)
         {}
 
         protected BaseDevice(DeviceItem deviceItem, ILogger logger)
-            :this(deviceItem.DeviceName, deviceItem.DeviceId, deviceItem.Params, deviceItem.HubId, logger)
+            :this(deviceItem.DeviceName, 
+                deviceItem.DeviceId, 
+                deviceItem.Params, 
+                deviceItem.State, 
+                deviceItem.HubId, 
+                logger)
         {}
 
         /// <inheritdoc />

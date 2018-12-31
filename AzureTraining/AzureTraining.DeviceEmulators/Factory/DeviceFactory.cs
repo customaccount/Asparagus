@@ -30,5 +30,8 @@ namespace AzureTraining.DeviceEmulators.Factory
         /// <inheritdoc />
         public BaseHub CreateHub(string id, ILogger logger)
             => new Hub(id, logger);
+
+        public BaseHub CreateHub(HubItem hubItem, ILogger logger)
+            => new Hub(hubItem, logger);
     }
 }

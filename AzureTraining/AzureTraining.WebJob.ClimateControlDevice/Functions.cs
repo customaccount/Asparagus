@@ -1,10 +1,8 @@
-﻿using AzureTraining.DeviceEmulators.Abstractions;
-using AzureTraining.DeviceEmulators.Abstractions.Devices;
+﻿using AzureTraining.DeviceEmulators.Abstractions.Devices;
 using AzureTraining.DeviceEmulators.Abstractions.Factory;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
 using AzureTraining.DeviceEmulators.Constants;
 using AzureTraining.DeviceEmulators.Devices.Model;
-using AzureTraining.DeviceEmulators.Enum;
 using AzureTraining.DTO;
 using WebJobs.Extensions.RabbitMQ.Attributes;
 
@@ -14,22 +12,24 @@ namespace AzureTraining.WebJob.ClimateControlDevice
     {
         private readonly ILogger _logger;
         private readonly IDeviceManager _deviceManager;
-        private readonly BaseDevice _device;
+        private readonly IDeviceFactory _deviceFactory;
+        private BaseDevice _device;
 
         public Functions(ILogger logger, IDeviceManager deviceManager, IDeviceFactory deviceFactory)
         {
             _logger = logger;
             _deviceManager = deviceManager;
+            _deviceFactory = deviceFactory;
+
+            //TODO gets this values from the config
             var deviceItem = new DeviceItem
             {
-                DeviceName = "climate",
+                DeviceName = "ClimateDevice",
                 DeviceId = "c4974901-0519-40e0-afb5-e836c77c88B8",
-                HubId = "c4974901-0519-40e0-afb5-e836c77c88B9",
-                Params = "test",
-                State =  DeviceState.Registered
+                Params = string.Empty
             };
 
-            _device = deviceFactory.CreateClimateDevice(deviceItem, logger); // get settings from the config, deviceId?
+            CreateDevice(deviceItem);
         }
 
         /// <summary>
@@ -47,8 +47,9 @@ namespace AzureTraining.WebJob.ClimateControlDevice
                 _logger.Write(
                     $"Device with {_device.Id} registered in the hub with id = {registerDeviceDto.HubId}");
             }
-        }
 
+            _logger.Write($"Triggered {nameof(Register)}. Conditions didn't match");
+        }
 
         /// <summary>
         /// Triggered when received the message for the getting device state in the device queue.
@@ -74,7 +75,27 @@ namespace AzureTraining.WebJob.ClimateControlDevice
                 };
             }
 
+            _logger.Write($"Triggered {nameof(GetDeviceState)}. Conditions didn't match");
+            
             return null;
+        }
+
+        private void CreateDevice(DeviceItem deviceItem)
+        {
+            //gets state of device from the storage(CosmosDB);
+            var result = _deviceManager.GetDeviceItemAsync(deviceItem.DeviceId).Result;
+
+            if (result == null)
+            {
+                //creates a new device
+                _deviceManager.CreateDeviceAsync(deviceItem).Wait();
+                _device = _deviceFactory.CreateClimateDevice(deviceItem, _logger);
+            }
+            else
+            {
+                //restores device
+                _device = _deviceFactory.CreateClimateDevice(result, _logger);
+            }
         }
     }
 }

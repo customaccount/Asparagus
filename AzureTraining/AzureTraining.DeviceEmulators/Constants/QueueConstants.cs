@@ -15,8 +15,8 @@ namespace AzureTraining.DeviceEmulators.Constants
 
         public static class WebApi
         {
-            public const string RouteKeyDeviceState = "webApi.deviceState";
-            public const string QueueRegister = "hub.register";
+            public const string DeviceState = "webApi.deviceState";
+            public const string QueueRegister = "webApi.register";
         }
 
         public static class Device

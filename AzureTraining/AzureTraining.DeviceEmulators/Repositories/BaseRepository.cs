@@ -21,6 +21,7 @@ namespace AzureTraining.DeviceEmulators.Repositories
         protected BaseRepository(string collectionId)
         {
             _collectionId = collectionId;
+            Initialize();
         }
 
         public async Task<T> GetItemAsync(string id)

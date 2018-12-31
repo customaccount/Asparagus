@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AzureTraining.DeviceEmulators.Abstractions;
+using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
 using AzureTraining.DeviceEmulators.Devices.Model;
 using AzureTraining.DeviceEmulators.Enum;
 
@@ -14,6 +15,8 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
         {
             _deviceRepository = deviceRepository;
         }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<DeviceItem>> GetRegisteredDevicesAsync(string hubId)
         {
 
@@ -23,16 +26,19 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
             return result;
         }
 
-        public async Task RegisterDeviceAsync(DeviceItem deviceItem)
+        /// <inheritdoc />
+        public async Task CreateDeviceAsync(DeviceItem deviceItem)
         {
             await _deviceRepository.CreateItemAsync(deviceItem);
         }
 
+        /// <inheritdoc />
         public async Task<DeviceItem> GetDeviceItemAsync(string deviceId)
         {
             return await _deviceRepository.GetItemAsync(deviceId);
         }
 
+        /// <inheritdoc />
         public async Task<DeviceState> GetDeviceStateAsync(string deviceId)
         {
             var result = await GetDeviceItemAsync(deviceId);
@@ -40,6 +46,7 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
             return result.State;
         }
 
+        /// <inheritdoc />
         public async Task UpdateDeviceAsync(DeviceItem deviceItem)
         {
             await _deviceRepository.UpdateItemAsync(deviceItem.DeviceId, deviceItem);

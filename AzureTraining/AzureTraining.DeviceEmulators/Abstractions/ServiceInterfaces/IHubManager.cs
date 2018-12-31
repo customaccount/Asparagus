@@ -6,11 +6,19 @@ namespace AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces
 {
     public interface IHubManager
     {
-        Task UpdateHubAsync(HubItem hubItem);
+        /// <summary>
+        /// Create hub async
+        /// </summary>
+        Task CreateHubAsync(HubItem hubItem);
 
-        //Task<IEnumerable<HubItem>> GetRegisteredDevicesAsync(string hubId);
-        //Task RegisterDeviceAsync(HubItem deviceItem);
-        //Task<HubItem> GetDeviceItemAsync(string deviceId);
-        //Task<DeviceState> GetDeviceStateAsync(string deviceId);
+        /// <summary>
+        /// Gets hub by hubId
+        /// </summary>
+        Task<HubItem> GetHubItemAsync(string hubId);
+
+        /// <summary>
+        /// Updates hub async
+        /// </summary>
+        Task UpdateHubAsync(HubItem hubItem);
     }
 }
