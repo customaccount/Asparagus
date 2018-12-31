@@ -1,6 +1,6 @@
 ﻿using AzureTraining.DeviceEmulators.Enum;
 
-namespace AzureTraining.DTO
+namespace AzureTraining.DeviceEmulators.DTO
 {
     public class DeviceStateDto
     {

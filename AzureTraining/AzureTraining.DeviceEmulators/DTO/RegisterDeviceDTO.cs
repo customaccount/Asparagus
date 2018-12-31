@@ -1,4 +1,4 @@
-﻿namespace AzureTraining.DTO
+﻿namespace AzureTraining.DeviceEmulators.DTO
 {
     public class RegisterDeviceDto
     {

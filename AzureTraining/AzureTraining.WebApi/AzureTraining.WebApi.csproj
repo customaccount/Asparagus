@@ -10,6 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AzureTraining.DeviceEmulators\AzureTraining.DeviceEmulators.csproj" />
   </ItemGroup>
 
 </Project>

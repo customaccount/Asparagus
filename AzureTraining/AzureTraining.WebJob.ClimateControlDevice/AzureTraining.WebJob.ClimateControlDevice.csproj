@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureTraining.DeviceEmulators\AzureTraining.DeviceEmulators.csproj" />
-    <ProjectReference Include="..\AzureTraining.DTO\AzureTraining.DTO.csproj" />
     <ProjectReference Include="..\WebJobs.Extensions.RabbitMQ\WebJobs.Extensions.RabbitMQ.csproj" />
   </ItemGroup>
 

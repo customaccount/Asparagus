@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\..\Users\ivanbondar\.nuget\packages\rabbitmq.client\5.1.0\lib\netstandard1.5\RabbitMQ.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

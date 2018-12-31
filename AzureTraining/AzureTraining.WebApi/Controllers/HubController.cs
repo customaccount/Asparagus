@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
+using AzureTraining.DeviceEmulators.Constants;
+using AzureTraining.DeviceEmulators.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureTraining.WebApi.Controllers
@@ -11,36 +9,37 @@ namespace AzureTraining.WebApi.Controllers
     [ApiController]
     public class HubController : ControllerBase
     {
+        private readonly IQueueManager _queueManager;
+
+        public HubController(IQueueManager queueManager)
+        {
+            _queueManager = queueManager;
+        }
+        
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get([FromQuery] DeviceStateDto deviceStateDto)
         {
-            return new string[] { "value1", "value2" };
-        }
+            // hubid = c4974901-0519-40e0-afb5-e836c77c88B9
+            // devclimateid = c4974901-0519-40e0-afb5-e836c77c88B8
+            var result = _queueManager.QueueMessage<DeviceStateDto>(QueueConstants.Hub.QueueDeviceState, 
+                QueueConstants.WebApi.DeviceState,
+                QueueConstants.ExchangeDirect, 
+                QueueConstants.Hub.QueueDeviceState, 
+                deviceStateDto);
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            return deviceStateDto?.State.ToString() ?? string.Empty;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] RegisterDeviceDto registerDeviceDto)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _queueManager.QueueMessage<RegisterDeviceDto>(QueueConstants.Hub.QueueRegister, 
+                QueueConstants.WebApi.QueueRegister,
+                QueueConstants.ExchangeDirect, 
+                QueueConstants.Hub.QueueRegister, 
+                registerDeviceDto);
         }
     }
 }

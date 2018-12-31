@@ -3,7 +3,7 @@ using AzureTraining.DeviceEmulators.Abstractions.Factory;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
 using AzureTraining.DeviceEmulators.Constants;
 using AzureTraining.DeviceEmulators.Devices.Model;
-using AzureTraining.DTO;
+using AzureTraining.DeviceEmulators.DTO;
 using WebJobs.Extensions.RabbitMQ.Attributes;
 
 namespace AzureTraining.WebJob.LightingControlDevice
