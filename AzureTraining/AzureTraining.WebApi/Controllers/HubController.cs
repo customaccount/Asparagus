@@ -20,15 +20,14 @@ namespace AzureTraining.WebApi.Controllers
         [HttpGet]
         public ActionResult<string> Get([FromQuery] DeviceStateDto deviceStateDto)
         {
-            // hubid = c4974901-0519-40e0-afb5-e836c77c88B9
-            // devclimateid = c4974901-0519-40e0-afb5-e836c77c88B8
-            var result = _queueManager.QueueMessage<DeviceStateDto>(QueueConstants.Hub.QueueDeviceState, 
+            var result = _queueManager.QueueMessage(QueueConstants.Hub.QueueDeviceState, 
                 QueueConstants.WebApi.DeviceState,
                 QueueConstants.ExchangeDirect, 
                 QueueConstants.Hub.QueueDeviceState, 
                 deviceStateDto);
 
-            return deviceStateDto?.State.ToString() ?? string.Empty;
+            return $@"Device with id => {deviceStateDto.DeviceId} 
+                           has state => {result?.State.ToString() ?? string.Empty}";
         }
 
         // POST api/values

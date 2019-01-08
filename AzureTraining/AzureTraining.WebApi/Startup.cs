@@ -28,7 +28,7 @@ namespace AzureTraining.WebApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Test Hub API", Version = "v1" }); });
-            services.AddSingleton<ILogger, ConsoleLogger>();
+            services.AddSingleton<ILogger, FileLogger>();
             services.AddSingleton<IQueueManager, QueueManager>();
         }
 
