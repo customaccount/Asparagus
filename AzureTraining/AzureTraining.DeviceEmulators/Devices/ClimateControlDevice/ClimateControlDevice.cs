@@ -14,7 +14,7 @@ namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
 
         public ClimateControlDevice(DeviceItem deviceItem, ILogger logger)
             : base(deviceItem, logger)
-        { }
+        {}
 
         /// <inheritdoc />
         public override IEnumerable<ISpecialDeviceCommand> GetSpecialDeviceCommands()
@@ -33,7 +33,7 @@ namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
         /// </summary>
         public void Command1()
         {
-            LogCommand(nameof(Command1));
+            LogCommand($"{nameof(Command1)} executed");
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
         /// </summary>
         public void Command2()
         {
-            LogCommand(nameof(Command2));
+            LogCommand($"{nameof(Command2)} executed");
         }
     }
 }

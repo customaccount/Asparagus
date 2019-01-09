@@ -4,8 +4,8 @@ namespace AzureTraining.DeviceEmulators.Devices.HumidifierControlDevice
 {
     public class HumidifierControlDeviceSpecialCommand1 : ISpecialDeviceCommand
     {
-        private readonly AzureTraining.DeviceEmulators.Devices.HumidifierControlDevice.HumidifierControlDevice _device;
-        public HumidifierControlDeviceSpecialCommand1(AzureTraining.DeviceEmulators.Devices.HumidifierControlDevice.HumidifierControlDevice device)
+        private readonly HumidifierControlDevice _device;
+        public HumidifierControlDeviceSpecialCommand1(HumidifierControlDevice device)
         {
             _device = device;
         }

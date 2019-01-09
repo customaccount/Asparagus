@@ -20,7 +20,6 @@ namespace AzureTraining.WebJob.Hub
                 .UseEnvironment("Development")
                 .ConfigureWebJobs(b =>
                 {
-                    //b.AddCosmosDB();
                     b.AddRabbitMq();;
                 })
                 .ConfigureServices(services =>

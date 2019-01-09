@@ -33,7 +33,7 @@ namespace AzureTraining.DeviceEmulators.Abstractions.Devices
             string hubId, 
             ILogger logger)
         {
-            _deviceItem = new DeviceItem()
+            _deviceItem = new DeviceItem
             {
                 DeviceId = id,
                 DeviceName = name,

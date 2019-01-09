@@ -19,7 +19,6 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
         /// <inheritdoc />
         public async Task<IEnumerable<DeviceItem>> GetRegisteredDevicesAsync(string hubId)
         {
-
             var result = await _deviceRepository.GetItemsAsync(
                 device => device.HubId == hubId && device.State == DeviceState.Registered);
 

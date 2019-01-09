@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AzureTraining.DeviceEmulators.Constants
+﻿namespace AzureTraining.DeviceEmulators.Constants
 {
     public static class QueueConstants
     {

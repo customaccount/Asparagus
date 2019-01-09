@@ -28,7 +28,7 @@ namespace AzureTraining.DeviceEmulators.Devices.LightingControlDevice
         /// </summary>
         public void TurnOn()
         {
-            LogCommand(nameof(TurnOn));
+            LogCommand($"{nameof(TurnOn)} executed");
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace AzureTraining.DeviceEmulators.Devices.LightingControlDevice
         /// </summary>
         public void TurnOff()
         {
-            LogCommand(nameof(TurnOff));
+            LogCommand($"{nameof(TurnOff)} executed");
         }
     }
 }

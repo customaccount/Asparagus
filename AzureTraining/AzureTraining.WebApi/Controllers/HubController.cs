@@ -27,14 +27,14 @@ namespace AzureTraining.WebApi.Controllers
                 deviceStateDto);
 
             return $@"Device with id => {deviceStateDto.DeviceId} 
-                           has state => {result?.State.ToString() ?? string.Empty}";
+                      has state => {result?.State.ToString() ?? string.Empty}";
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] RegisterDeviceDto registerDeviceDto)
         {
-            _queueManager.QueueMessage<RegisterDeviceDto>(QueueConstants.Hub.QueueRegister, 
+            _queueManager.QueueMessage(QueueConstants.Hub.QueueRegister, 
                 QueueConstants.WebApi.QueueRegister,
                 QueueConstants.ExchangeDirect, 
                 QueueConstants.Hub.QueueRegister, 

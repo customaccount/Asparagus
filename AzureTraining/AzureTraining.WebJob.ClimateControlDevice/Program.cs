@@ -20,7 +20,6 @@ namespace AzureTraining.WebJob.ClimateControlDevice
                 .UseEnvironment("Development")
                 .ConfigureWebJobs(b =>
                 {
-                    //b.AddCosmosDB();
                     b.AddRabbitMq();
                 })
                 .ConfigureServices(services =>

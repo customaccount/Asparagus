@@ -4,9 +4,9 @@ namespace AzureTraining.DeviceEmulators.Devices.LightingControlDevice
 {
     public class LightingControlDeviceTurnOnCommand : ISpecialDeviceCommand
     {
-        private readonly AzureTraining.DeviceEmulators.Devices.LightingControlDevice.LightingControlDevice _device;
+        private readonly LightingControlDevice _device;
 
-        public LightingControlDeviceTurnOnCommand(AzureTraining.DeviceEmulators.Devices.LightingControlDevice.LightingControlDevice device)
+        public LightingControlDeviceTurnOnCommand(LightingControlDevice device)
         {
             _device = device;
         }

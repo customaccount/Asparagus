@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AzureTraining.DeviceEmulators.Abstractions;
 using AzureTraining.DeviceEmulators.Abstractions.Factory;
 using AzureTraining.DeviceEmulators.Abstractions.ServiceInterfaces;
@@ -20,7 +21,6 @@ namespace AzureTraining.WebJob.LightingControlDevice
                 .UseEnvironment("Development")
                 .ConfigureWebJobs(b =>
                 {
-                    //b.AddCosmosDB();
                     b.AddRabbitMq();
                 })
                 .ConfigureServices(services =>

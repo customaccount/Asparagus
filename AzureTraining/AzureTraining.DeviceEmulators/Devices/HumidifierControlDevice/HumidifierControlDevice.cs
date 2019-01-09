@@ -27,7 +27,7 @@ namespace AzureTraining.DeviceEmulators.Devices.HumidifierControlDevice
         /// </summary>
         public void Command1()
         {
-            LogCommand(nameof(Command1));
+            LogCommand($"{nameof(Command1)} executed");
         }
     }
 }

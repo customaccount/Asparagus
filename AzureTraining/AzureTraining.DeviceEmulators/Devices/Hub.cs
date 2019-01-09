@@ -10,6 +10,6 @@ namespace AzureTraining.DeviceEmulators.Devices
         {}
 
         public Hub(HubItem hubItem, ILogger logger) : base(hubItem, logger)
-        { }
+        {}
     }
 }

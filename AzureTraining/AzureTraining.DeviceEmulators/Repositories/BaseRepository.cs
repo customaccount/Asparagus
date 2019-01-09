@@ -15,7 +15,7 @@ namespace AzureTraining.DeviceEmulators.Repositories
         private const string Endpoint = "https://localhost:8081";
         private const string Key = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
         private const string _databaseId = "TestCosmosDb";
-        private DocumentClient Client;
+        private DocumentClient _client;
         private readonly string _collectionId;
 
         protected BaseRepository(string collectionId)
@@ -28,7 +28,7 @@ namespace AzureTraining.DeviceEmulators.Repositories
         {
             try
             {
-                Document document = await Client.ReadDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id));
+                Document document = await _client.ReadDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id));
 
                 return (T)(dynamic)document;
             }
@@ -45,7 +45,7 @@ namespace AzureTraining.DeviceEmulators.Repositories
 
         public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         {
-            IDocumentQuery<T> query = Client.CreateDocumentQuery<T>(
+            IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(
                     UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId),
                     new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate)
@@ -62,22 +62,22 @@ namespace AzureTraining.DeviceEmulators.Repositories
 
         public async Task<Document> CreateItemAsync(T item)
         {
-            return await Client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId), item);
+            return await _client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId), item);
         }
 
         public async Task<Document> UpdateItemAsync(string id, T item)
         {
-            return await Client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id), item);
+            return await _client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id), item);
         }
 
         public async Task DeleteItemAsync(string id)
         {
-            await Client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id));
+            await _client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(_databaseId, _collectionId, id));
         }
 
         public void Initialize()
         {
-            Client = new DocumentClient(new Uri(Endpoint), Key);
+            _client = new DocumentClient(new Uri(Endpoint), Key);
             CreateDatabaseIfNotExistsAsync().Wait();
             CreateCollectionIfNotExistsAsync().Wait();
         }
@@ -86,13 +86,13 @@ namespace AzureTraining.DeviceEmulators.Repositories
         {
             try
             {
-                await Client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(_databaseId));
+                await _client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(_databaseId));
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    await Client.CreateDatabaseAsync(new Database { Id = _databaseId });
+                    await _client.CreateDatabaseAsync(new Database { Id = _databaseId });
                 }
                 else
                 {
@@ -105,13 +105,13 @@ namespace AzureTraining.DeviceEmulators.Repositories
         {
             try
             {
-                await Client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId));
+                await _client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId));
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    await Client.CreateDocumentCollectionAsync(
+                    await _client.CreateDocumentCollectionAsync(
                         UriFactory.CreateDatabaseUri(_databaseId),
                         new DocumentCollection { Id = _collectionId },
                         new RequestOptions { OfferThroughput = 1000 });

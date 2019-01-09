@@ -4,9 +4,9 @@ namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
 {
     public class ClimateControlDeviceSpecialCommand1 : ISpecialDeviceCommand
     {
-        private readonly AzureTraining.DeviceEmulators.Devices.ClimateControlDevice.ClimateControlDevice _device;
+        private readonly ClimateControlDevice _device;
 
-        public ClimateControlDeviceSpecialCommand1(AzureTraining.DeviceEmulators.Devices.ClimateControlDevice.ClimateControlDevice device)
+        public ClimateControlDeviceSpecialCommand1(ClimateControlDevice device)
         {
             _device = device;
         }

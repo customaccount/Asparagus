@@ -12,10 +12,30 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
     {
         private const string HostName = "localhost"; // TODO gets from config.
         private readonly ILogger _logger;
+        private readonly ConnectionFactory _connectionFactory;
+        private JsonSerializerSettings _jsonSerializerSettings;
+
+        private JsonSerializerSettings JsonSerializerSettings
+        {
+            get
+            {
+                if (_jsonSerializerSettings == null)
+                {
+                    _jsonSerializerSettings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                        TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
+                    };
+                }
+
+                return _jsonSerializerSettings;
+            }
+        }
 
         public QueueManager(ILogger logger)
         {
             _logger = logger;
+            _connectionFactory = new ConnectionFactory { HostName = HostName };
         }
 
         /// <inheritdoc/>
@@ -23,7 +43,7 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
         {
             PublishMessage(inputQueue, exchange, routingKey, message);
             var result = string.Empty;
-            ReceiveMessage<T>(outputQueue, exchange, outputQueue, (model, ea) =>
+            ReceiveMessage(outputQueue, exchange, outputQueue, (model, ea) =>
             {
                 var body = ea.Body;
                 result = Encoding.UTF8.GetString(body);
@@ -34,9 +54,8 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
         }
 
         private void PublishMessage(string queue, string exchange, string routingKey, object message)
-        {
-            var connectionFactory = new ConnectionFactory() { HostName = HostName };
-            using (var connection = connectionFactory.CreateConnection())
+        { 
+            using (var connection = _connectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
@@ -45,22 +64,15 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
             }
         }
 
-        private void ReceiveMessage<T>
+        private void ReceiveMessage
             (string queue, string exchange, string routingKey, EventHandler<BasicDeliverEventArgs> eventHandler)
         {
-            var connectionFactory = new ConnectionFactory() { HostName = HostName };
-            using (var connection = connectionFactory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(routingKey, durable: true, exclusive: false, autoDelete: false, arguments: null);
-                channel.QueueBind(queue, exchange, routingKey);
-            }
-
-            using (var connection = connectionFactory.CreateConnection())
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(routingKey, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueBind(queue, exchange, routingKey);
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += eventHandler;
                     channel.BasicConsume(queue: queue, autoAck: true, consumer: consumer);
@@ -70,23 +82,9 @@ namespace AzureTraining.DeviceEmulators.ServiceImplementations
         }
 
         private string JsonSerializeMessage(object value)
-        {
-            return JsonConvert.SerializeObject(value,
-                new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                    TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
-                });
-        }
+            => JsonConvert.SerializeObject(value, JsonSerializerSettings);
 
-        private TOutput JsonDeserializeMessage<TOutput>(string value)
-        {
-            return JsonConvert.DeserializeObject<TOutput>(value,
-                new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                    TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
-                });
-        }
+        private TOutput JsonDeserializeMessage<TOutput>(string value) 
+            => JsonConvert.DeserializeObject<TOutput>(value, JsonSerializerSettings);
     }
 }

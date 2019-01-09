@@ -1,5 +1,4 @@
-﻿using AzureTraining.DeviceEmulators.Abstractions.Devices;
-using AzureTraining.DeviceEmulators.Devices.Model;
+﻿using AzureTraining.DeviceEmulators.Devices.Model;
 
 namespace AzureTraining.DeviceEmulators.Repositories
 {

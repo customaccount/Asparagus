@@ -2,11 +2,11 @@
 
 namespace AzureTraining.DeviceEmulators.Devices.ClimateControlDevice
 {
-    class ClimateControlDeviceSpecialCommand2 : ISpecialDeviceCommand
+    public class ClimateControlDeviceSpecialCommand2 : ISpecialDeviceCommand
     {
-        private readonly AzureTraining.DeviceEmulators.Devices.ClimateControlDevice.ClimateControlDevice _device;
+        private readonly ClimateControlDevice _device;
 
-        public ClimateControlDeviceSpecialCommand2(AzureTraining.DeviceEmulators.Devices.ClimateControlDevice.ClimateControlDevice device)
+        public ClimateControlDeviceSpecialCommand2(ClimateControlDevice device)
         {
             _device = device;
         }
